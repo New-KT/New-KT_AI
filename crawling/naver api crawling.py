@@ -48,7 +48,7 @@ def getPostData(post, jsonResult, cnt):
     description = post['description']
     description = re.sub("<.*?>", "", description)
 
-    org_link = post['originallink']
+    org_link = post['link']
 
     pDate = datetime.datetime.strptime(post['pubDate'], '%a, %d %b %Y %H:%M:%S +0900')
     pDate = pDate.strftime('%Y-%m-%d %H:%M:%S')
