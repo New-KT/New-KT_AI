@@ -5,10 +5,14 @@ import json
 import urllib.request
 import re
 import datetime
+import os
+from dotenv import load_dotenv
+
+load_dotenv('.env')
 
 #발급받은 api 입력
-client_id = 'WBmZXKzYC7IHrQHpkFYd'
-client_secret = 'y5HVU1NiUe'
+client_id = os.environ.get("client_id")
+client_secret = os.environ.get("client_secret")
 
 # 요청형식 만들기
 def getRequestUrl(url):
