@@ -5,13 +5,14 @@ from dotenv import load_dotenv
 # Load environment variables from a .env file
 load_dotenv()
 
-# Read content from a text file
-file_path = '/content/drive/MyDrive/meeting.txt'  # Update with the actual path to your text file
-with open(file_path, 'r', encoding='utf-8') as file:
-    news_content = file.read()
+# # Read content from a text file
+# file_path = '/content/drive/MyDrive/meeting.txt'  # Update with the actual path to your text file
+# with open(file_path, 'r', encoding='utf-8') as file:
+#     meeting_content = file.read()
 
+meeting_content = meeting.txt
 # Set up OpenAI client
-client = OpenAI(api_key="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")
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 # Define system and user messages
 GPT_MODEL = "gpt-3.5-turbo"
