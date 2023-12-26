@@ -2,7 +2,7 @@
 ## stt
     -구글 api 
 ## 키워드 추출
-    -gpt api
+    - gpt api
     
 ## 키워드 기반 뉴스 요약모델
       - news_crawling.py 
