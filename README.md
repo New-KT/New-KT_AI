@@ -1,5 +1,5 @@
 # New-KT_AI
-## sst
+## stt
     -구글 api 
 ## 키워드 추출
     -
@@ -13,3 +13,4 @@
   
 ## 회의 요약 모델
     - 클로바 요약 api
+    - gogamza/kobart-summarization
