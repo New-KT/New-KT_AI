@@ -1,4 +1,4 @@
-from stt_keyword.keyword import keyword
+from key import *
 from stt_save_file import * 
 
 import time
