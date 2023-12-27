@@ -1,4 +1,4 @@
-from keyword_extract.extract import *
+from extract import *
 
 def keyword(): 
     load_dotenv()
