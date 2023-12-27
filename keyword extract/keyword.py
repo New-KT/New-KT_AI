@@ -1,6 +1,6 @@
 from extract import *
 
-def main(): 
+def keyword(): 
     load_dotenv()
     file_path = r"keyword extract\meeting.txt"
     file_path= read_concatenate_news(file_path)
@@ -11,5 +11,5 @@ def main():
     
 if __name__ == "__main__":
     # Load environment variables from a .env file
-    main()
+    keyword()
 
