@@ -1,9 +1,15 @@
 import sys
 import requests
 import json
+import os
+from dotenv import load_dotenv
 
-client_id = "bd0c61xndl"
-client_secret = "xcvOe7RyNOjS3BhfFDQ7DgYIvwwSuEI7PuyzUaI8"
+load_dotenv('.env')
+
+#발급받은 api 입력
+client_id = os.environ.get("client_id")
+client_secret = os.environ.get("client_secret")
+
 url = 'https://naveropenapi.apigw.ntruss.com/text-summary/v1/summarize'
 
 headers = {
