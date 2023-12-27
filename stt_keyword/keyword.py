@@ -1,4 +1,4 @@
-from extract import *
+from keyword_extract.extract import *
 
 def keyword(): 
     load_dotenv()
@@ -13,3 +13,4 @@ if __name__ == "__main__":
     # Load environment variables from a .env file
     keyword()
 
+ 
