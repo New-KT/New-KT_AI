@@ -69,12 +69,21 @@ def getPostData(post, jsonResult, cnt):
 
     org_link = post['link']
     
-    pDate = datetime.datetime.strptime(post['pubDate'], '%a, %d %b %Y %H:%M:%S +0900')  # 수정된 부분
+    pDate = datetime.datetime.strptime(post['pubDate'], '%a, %d %b %Y %H:%M:%S +0900') 
     pDate = pDate.strftime('%Y-%m-%d %H:%M:%S')
 
-    jsonResult.append({'cnt': cnt, 'title': title, 'description': description,
+    jsonResult.append({'cnt': cnt, 'title': title, 'description': description, 
                        'link': org_link, 'pDate': pDate})
     return None
+
+def preprocess_text(text):
+    # HTML 태그 제거
+    text = re.sub(r'<.*?>', '', text)
+    # 특수문자 및 숫자 제거
+    text = re.sub(r'[^a-zA-Z가-힣\s]', '', text)
+    # 여러 공백을 단일 공백으로 변환
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
 
 # 메인 함수
 def main():
@@ -83,12 +92,11 @@ def main():
     sort = 'sim'   # 관련도순
     cnt = 0
     jsonResult = []
-    url_list = []
     article_texts = []  # 기사 텍스트를 저장할 리스트 추가
 
-    jsonResponse = getNaverSearch(node, srcText, 1, 5, sort)
+    jsonResponse = getNaverSearch(node, srcText, 1, 10, sort)
     total = jsonResponse['total']
-
+    
     for post in jsonResponse['items']:
         cnt += 1
         getPostData(post, jsonResult, cnt)
@@ -102,16 +110,23 @@ def main():
     print("가져온 데이터 : %d 건" % (cnt))
     print('%s_naver_%s.json SAVED' % (srcText, node))
 
-    # 각 기사 URL에 대해 기사 텍스트를 가져오기
+    naver_news_count = 0  # 네이버 뉴스 가져온 개수를 세는 카운터 추가
+
     for item in jsonResult:
         url = item['link']
+        
         # 네이버 뉴스를 가져올 경우에만 크롤링
         if url.startswith('https://n.news.naver.com/mnews/'):
             article_text = get_article_text(url)
             if article_text:
                 article_texts.append(article_text)  # 텍스트를 리스트에 추가
                 print(f"\n{article_text}")
-
+                
+                # 네이버 뉴스를 3개 가져왔으면 루프 종료
+                naver_news_count += 1
+                if naver_news_count >= 3:
+                    break
+    
     # 기사 텍스트를 파일에 저장
     with open('%s_naver_%s_texts.txt' % (srcText, node), 'w', encoding='utf-8') as textfile:
         for text in article_texts:
