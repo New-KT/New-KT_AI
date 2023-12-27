@@ -1,6 +1,6 @@
 from stt_save_file import * 
 
-def main():
+def stt():
     language_code = 'ko-KR'
     client = speech.SpeechClient()
     config = speech.RecognitionConfig(
@@ -25,7 +25,7 @@ def main():
             listen_print_loop(responses, output_file)
 
 if __name__ == '__main__':
-    main()
+    stt()
 # [END speech_transcribe_streaming_mic]
 
 
