@@ -44,21 +44,6 @@ def getNaverSearch(node, srcText, start, display, sort):
     else:
         return json.loads(responseDecode)
 
-# 뉴스 기사에서 텍스트 추출
-def get_article_text(url):
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        html = response.text
-
-        soup = BeautifulSoup(html, 'html.parser')
-        article_text = soup.find('article').get_text(separator='\n', strip=True)
-        return article_text
-
-    except Exception as e:
-        print(f"Error while fetching article from {url}: {e}")
-        return None
-
 # 결과 저장
 def getPostData(post, jsonResult, cnt):
     title = post['title']
@@ -75,6 +60,23 @@ def getPostData(post, jsonResult, cnt):
     jsonResult.append({'cnt': cnt, 'title': title, 'description': description, 
                        'link': org_link, 'pDate': pDate})
     return None
+
+# 뉴스 기사에서 텍스트 & logo_img 추출
+def get_article_text(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        html = response.text
+
+        soup = BeautifulSoup(html, 'html.parser')
+        article_text = soup.find('article').get_text(separator='\n', strip=True)
+        
+        return article_text
+
+    except Exception as e:
+        print(f"Error while fetching article from {url}: {e}")
+        return None
+
 
 def preprocess_text(text):
     # HTML 태그 제거
