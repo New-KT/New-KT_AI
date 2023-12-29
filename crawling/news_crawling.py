@@ -61,7 +61,7 @@ def getPostData(post, jsonResult, cnt):
                        'link': org_link, 'pDate': pDate})
     return None
 
-# 뉴스 기사에서 텍스트 & logo_img 추출
+# 뉴스 기사에서 텍스트
 def get_article_text(url):
     try:
         response = requests.get(url)

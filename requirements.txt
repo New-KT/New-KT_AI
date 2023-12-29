@@ -1,0 +1,5 @@
+openai
+dotenv
+os
+pyaudio
+six
