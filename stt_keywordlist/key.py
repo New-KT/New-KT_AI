@@ -1,5 +1,5 @@
 from extract import *
-
+# keywords_list=[]
 def keyword(output_file_path): 
 
     file_path = read_concatenate_news(output_file_path)
@@ -14,8 +14,6 @@ def keyword(output_file_path):
 
     
     lines = result_string.strip().split('\n')
-
-    keywords_list = []
 
     for line in lines:
         words = line.split('. ')

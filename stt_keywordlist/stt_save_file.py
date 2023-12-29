@@ -94,6 +94,7 @@ def stt():
         interim_results=True)
 
     output_file_path = "output.txt"
+    keywords_list=[]
     with open(output_file_path, 'a', encoding='utf-8') as output_file:
         with MicrophoneStream(RATE, CHUNK) as stream:
             audio_generator = stream.generator()
