@@ -1,11 +1,7 @@
 from news_crawling import * 
 from news_summary import * 
-def crawl(top):
-    load_dotenv('.env')
 
-    #발급받은 api 입력
-    client_id = os.environ.get("client_id")
-    client_secret = os.environ.get("client_secret")
+def crawl(top):
     node = 'news'  # 크롤링 할 대상
     srcText = top #input('검색어를 입력하세요: ')
     sort = 'sim'   # 관련도순
@@ -60,4 +56,5 @@ def crawl(top):
     
 
 # if __name__ == '__main__':
+#     openai.api_key = os.environ.get("OPENAI_API_KEY")
 #     crawl()
