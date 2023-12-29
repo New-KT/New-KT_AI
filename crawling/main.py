@@ -7,7 +7,6 @@ def main():
     sort = 'sim'   # 관련도순
     cnt = 0
     jsonResult = []
-    url_list = []
     article_texts = []  # 기사 텍스트를 저장할 리스트 추가
 
     jsonResponse = getNaverSearch(node, srcText, 1, 10, sort)
