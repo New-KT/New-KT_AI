@@ -3,14 +3,39 @@ import openai
 import pandas as pd
 import json
 from dotenv import load_dotenv
+import tiktoken
 
 # Load environment variables from the file
 load_dotenv()
 
-def read_concatenate_news(file_path):
+#토큰 수 계산 함수
+def encoding_getter(encoding_type: str):
+    return tiktoken.encoding_for_model(encoding_type)
+
+def tokenizer(string: str, encoding_type: str) -> list:
+    encoding = encoding_getter(encoding_type)
+    #print (encoding)
+    tokens = encoding.encode(string)
+    return tokens
+
+def token_counter(string: str, encoding_type: str) -> int:
+    num_tokens = len(tokenizer(string, encoding_type))
+    return num_tokens
+
+
+def read_concatenate_news(file_path, max_tokens=3000):
     news = pd.read_csv(file_path, delimiter='\t', header=None, names=['text'])
     concatenated_text = news['text'].str.cat(sep=' ')
-    return concatenated_text
+    num_tokens = token_counter(concatenated_text, "gpt-3.5-turbo")
+    print("토큰 수: " + str(num_tokens))
+
+    if num_tokens >= max_tokens:
+        tokens = tokenizer(concatenated_text, "gpt-3.5-turbo")
+        concatenated_text = encoding_getter("gpt-3.5-turbo").decode(tokens[:max_tokens])
+        return concatenated_text
+    else:
+        return concatenated_text
+
 
 def summarize_news(file_path):
     query = read_concatenate_news(file_path)
@@ -38,18 +63,13 @@ def save_to_json(result, srcText, node, output_file=None):
         json.dump({'summary': result}, json_file, ensure_ascii=False, indent=4)
 
     print(f"결과가 {output_file}에 저장되었습니다.")
+    
 
+# def main():
+#     file_path = '오늘날씨_naver_news_texts.txt'
+#     result = summarize_news(file_path)
+#     save_to_json(result)
 
-# def save_to_json(result, output_file='summary_result.json'):
-#     with open(output_file, 'w', encoding='utf-8') as json_file:
-#         json.dump({'summary': result}, json_file, ensure_ascii=False, indent=4)
-#     print(f"결과가 {output_file}에 저장되었습니다.")
-
-def main():
-    file_path = '오늘날씨_naver_news_texts.txt'
-    result = summarize_news(file_path)
-    save_to_json(result)
-
-if __name__ == '__main__':
-    openai.api_key = os.environ.get("OPENAI_API_KEY")
-    main()
+# if __name__ == '__main__':
+#     openai.api_key = os.environ.get("OPENAI_API_KEY")
+#     main()
