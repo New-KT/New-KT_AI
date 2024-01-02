@@ -1,10 +1,10 @@
 from extract import *
 from crawling_main import *
-keywords_list=[]
-def keyword(output_file_path): 
+
+def keyword(output_file_path,keywords_list): 
     load_dotenv()
     file_path = read_concatenate_news(output_file_path)
-    result = extract_keywords_from_meeting(file_path)
+    result = extract_keywords_from_meeting(file_path,keywords_list)
     
     # 문자열 변수에 결과 추가
     result_string = f"{result}"
@@ -29,6 +29,5 @@ def keyword(output_file_path):
 if __name__ == "__main__":
     # Load environment variables from a .env file
     keyword("output.txt")  
-    
-# for word in keywords_list[-3:]:
-#     crawl(word)
+    for word in keywords_list[-3:]:
+        news=crawl(word)

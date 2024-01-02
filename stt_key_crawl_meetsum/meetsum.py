@@ -30,14 +30,16 @@ def read_concatenate_news(file_path):
     concatenated_text = news['text'].str.cat(sep=' ')
     return concatenated_text
 
-def mts(): 
+def mts(output_file_path): 
     load_dotenv()
-    file_path = r"meeting_summary\meeting.txt"
-    file_path= read_concatenate_news(file_path)
+    file_path= read_concatenate_news(output_file_path)
     # Call the function and print the result
     result = summary_meeting(file_path)
-    print(result)
     
+    with open('result.txt', 'w', encoding='utf-8') as result_file:
+        result_file.write(result)
+    
+
     
 if __name__ == "__main__":
     # Load environment variables from a .env file

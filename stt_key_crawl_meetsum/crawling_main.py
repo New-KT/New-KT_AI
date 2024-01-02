@@ -1,13 +1,15 @@
 from news_crawling import * 
 from news_summary import * 
 
+from news_crawling import * 
+from news_summary import * 
+    
 def crawl(top):
     node = 'news'  # 크롤링 할 대상
-    srcText = top #input('검색어를 입력하세요: ')
+    srcText = top
     sort = 'sim'   # 관련도순
     cnt = 0
     jsonResult = []
-    url_list = []
     article_texts = []  # 기사 텍스트를 저장할 리스트 추가
 
     jsonResponse = getNaverSearch(node, srcText, 1, 10, sort)
@@ -57,4 +59,5 @@ def crawl(top):
 
 # if __name__ == '__main__':
 #     openai.api_key = os.environ.get("OPENAI_API_KEY")
-#     crawl()
+
+#     main()

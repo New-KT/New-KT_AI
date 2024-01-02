@@ -3,7 +3,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import pandas as pd
 
-def extract_keywords_from_meeting(file_path):
+def extract_keywords_from_meeting(file_path,keywords_list):
     # Set up OpenAI client
     load_dotenv()
     client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
@@ -12,7 +12,7 @@ def extract_keywords_from_meeting(file_path):
     GPT_MODEL = "gpt-3.5-turbo"
     messages = [
         {"role": "system", "content": "You are the best keyword extractor. You need to extract keywords from the meeting content. All responses should be in Korean."},
-        {"role": "user", "content": f"회의 내용 텍스트파일이야. 너가 생각하기에 텍스트에서 주제라고 생각되는 키워드 3개만 추출해줘. 다른 사담없이 오직 키워드 세개만. {file_path}"}
+        {"role": "user", "content": f"회의 내용 텍스트파일이야. 너가 생각하기에 텍스트에서 주제라고 생각되는 키워드 2개만 추출해줘. 다른 사담없이 오직 키워드 두개만, {keywords_list}에 있는 단어는 제외해줘. {file_path}"}
     ]
 
     # Make API request using the content from the text file
