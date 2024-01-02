@@ -55,6 +55,6 @@ def crawl(top):
     save_to_json(result,srcText, node)
     
 
-# if __name__ == '__main__':
-#     openai.api_key = os.environ.get("OPENAI_API_KEY")
-#     crawl()
+if __name__ == '__main__':
+    openai.api_key = os.environ.get("OPENAI_API_KEY")
+    crawl()
