@@ -111,8 +111,8 @@ def stt():
                 listen_print_loop(response, output_file)
                 if time.time() - start_time >= 60:
                     keyword(output_file_path, keywords_list)
-                    for word in keywords_list[-3:]:
-                        print(word)
+                    for word in keywords_list[-2:]:
+                        # print(word)
                         crawl(word)
                         
                     start_time = time.time()
@@ -120,6 +120,6 @@ def stt():
 
 
 if __name__ == "__main__":
-    #stt()
+    stt()
     mts('output.txt')
     
