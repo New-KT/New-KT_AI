@@ -19,7 +19,7 @@ def extract_keywords_from_meeting(file_path,keywords_list):
     response = client.chat.completions.create(
         model=GPT_MODEL,
         messages=messages,
-        temperature=0
+        temperature=0.3
     )
 
     # Extract and return the generated response

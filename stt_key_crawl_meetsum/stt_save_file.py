@@ -117,8 +117,9 @@ def stt():
                         
                     start_time = time.time()
 
-    mts('output.txt')
 
 
 if __name__ == "__main__":
-    stt()
+    #stt()
+    mts('output.txt')
+    
