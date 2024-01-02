@@ -76,4 +76,4 @@ def parse_meeting_result(result_text):
 
 
 if __name__ == "__main__":
-   mts('output.txt')
+   mts()
