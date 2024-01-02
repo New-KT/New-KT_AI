@@ -1,12 +1,12 @@
 import os
-from openai import OpenAI
+import openai
 from dotenv import load_dotenv
 import pandas as pd
 
 def extract_keywords_from_meeting(file_path):
     # Set up OpenAI client
     load_dotenv()
-    client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+    client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
     # Define system and user messages
     GPT_MODEL = "gpt-3.5-turbo"

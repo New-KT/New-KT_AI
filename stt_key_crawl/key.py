@@ -1,6 +1,6 @@
 from extract import *
 from crawling_main import *
-keywords_list=[]
+
 def keyword(output_file_path): 
     load_dotenv()
     file_path = read_concatenate_news(output_file_path)
@@ -28,7 +28,8 @@ def keyword(output_file_path):
     
 if __name__ == "__main__":
     # Load environment variables from a .env file
+    keywords_list=[]
     keyword("stt_key_crawl\output.txt")  
     
-for word in keywords_list[-3:]:
-    crawl(word)
+    for word in keywords_list[-3:]:
+        crawl(word)

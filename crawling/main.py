@@ -56,4 +56,5 @@ def main():
 
 if __name__ == '__main__':
     openai.api_key = os.environ.get("OPENAI_API_KEY")
+
     main()
