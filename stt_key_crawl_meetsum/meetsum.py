@@ -2,6 +2,7 @@ import os
 from openai import OpenAI
 from dotenv import load_dotenv
 import pandas as pd
+import json
 
 def summary_meeting(file_path):
     # Set up OpenAI client
@@ -30,18 +31,49 @@ def read_concatenate_news(file_path):
     concatenated_text = news['text'].str.cat(sep=' ')
     return concatenated_text
 
+ 
+
 def mts(output_file_path): 
     load_dotenv()
     file_path= read_concatenate_news(output_file_path)
     # Call the function and print the result
     result = summary_meeting(file_path)
-    
-    with open('result.txt', 'w', encoding='utf-8') as result_file:
-        result_file.write(result)
-    
+    if result is not None:
+        result_dict = parse_meeting_result(result)
+        result_json = json.dumps(result_dict, ensure_ascii=False, indent=2)
+        print(result_json)
+        result_file='result.json'
+        with open(result_file, 'w', encoding='utf-8') as f:
+            json.dump(result_json, f, ensure_ascii=False, indent=2)
+            
+            
 
-    
+def parse_meeting_result(result_text):
+    result_dict = {
+        "회의 제목": "",
+        "주요 이슈 및 진행상황": "",
+        "새로운 상황 및 공지사항": "",
+        "추가 안건":"" 
+    }
+    current_key = None
+
+    # Split the result text into sections based on newlines
+    lines = result_text.strip().split('\n')
+
+    for line in lines:
+        # Check if the line contains a colon, indicating a key-value pair
+        if ':' in line:
+            # Split the line into key and value
+            key, value = map(str.strip, line.split(':', 1))
+            current_key = key
+            if key in result_dict:
+                result_dict[key] = value
+        elif current_key:
+            # If there is a current key, append the line to its value
+            result_dict[current_key] += ' ' + line
+
+    return result_dict
+
+
 if __name__ == "__main__":
-    # Load environment variables from a .env file
-    mts()
-
+   mts('output.txt')
