@@ -28,8 +28,7 @@ def keyword(output_file_path):
     
 if __name__ == "__main__":
     # Load environment variables from a .env file
-    keywords_list=[]
-    keyword("stt_key_crawl\output.txt")  
+    keyword("output.txt")  
     
     for word in keywords_list[-3:]:
         crawl(word)
