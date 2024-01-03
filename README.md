@@ -12,5 +12,5 @@
     - gpt api 기반 뉴스요약
   
 ## 회의 요약 모델
-    - 클로바 요약 api
+    - 네이버 api
     - gogamza/kobart-summarization
