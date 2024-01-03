@@ -3,7 +3,7 @@ from news_summary import *
 
 from news_crawling import * 
 from news_summary import * 
-    
+from make_json import *
 def crawl(top):
     node = 'news'  # 크롤링 할 대상
     srcText = top
@@ -55,9 +55,36 @@ def crawl(top):
     file_path='%s_naver_%s_texts.txt' % (srcText, node)
     result=summarize_news(file_path)
     save_to_json(result,srcText, node)
+
+    naver_news_items = [item for item in jsonResult if item['link'].startswith('https://n.news.naver.com/mnews/')][:3]
+
+    jsonlist = {}
+    for news in naver_news_items:
+        keyword = srcText
+        titles, links = mkjs(news)
+    
+        if keyword in jsonlist:
+            jsonlist[keyword]['title'].extend(titles)
+            jsonlist[keyword]['link'].extend(links)
+        else:
+            # 해당 키워드가 없는 경우 새로운 아이템 추가
+            jsonlist[keyword] = {'keyword': keyword, 'title': titles, 'link': links}
+
+    # 각 아이템에 news_summary 키를 추가
+    for keyword, values in jsonlist.items():
+        titles = values['title']
+        links = values['link']
+         
+        values['news_summary'] = result
+        
+# jsonlist의 values만 가져와서 리스트로 만듦
+    result_list = list(jsonlist.values())   
+    with open('%s_naver_%s_merge.json' % (srcText, node), 'w', encoding='utf8') as outfile:
+        mergeFile = json.dumps(result_list, indent=4, ensure_ascii=False)
+        outfile.write(mergeFile)
     
 
-# if __name__ == '__main__':
-#     openai.api_key = os.environ.get("OPENAI_API_KEY")
+if __name__ == '__main__':
+    openai.api_key = os.environ.get("OPENAI_API_KEY")
 
-#     main()
+    crawl('협박')
