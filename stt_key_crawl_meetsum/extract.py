@@ -12,7 +12,7 @@ def extract_keywords_from_meeting(file_path,keywords_list):
     GPT_MODEL = "gpt-3.5-turbo"
     messages = [
         {"role": "system", "content": "You are the best keyword extractor. You need to extract keywords from the meeting content. All responses should be in Korean."},
-        {"role": "user", "content": f"회의 내용 텍스트파일이야. {keywords_list}에 있는 단어는 제외하고, 너가 생각하기에 텍스트에서 주제라고 생각되는 키워드 2개만 추출해줘. 다른 사담없이 오직 키워드 두개만! {file_path}"}
+        {"role": "user", "content": f"회의 내용이야. {file_path} 에서 회의의 핵심 키워드 5개만 추출해줘  list = {keywords_list}내에 있는 키워드는 제외하고! 다른 사담없이 오직 키워드 단어 2개 쉼표로 구분해서 추출해"}
     ]
 
     # Make API request using the content from the text file
