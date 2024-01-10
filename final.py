@@ -54,8 +54,12 @@ def extract_keywords_from_meeting(text,keywords_list):
     '''  
 
     messages = [
-        {"role": "system", "content": "You are the best keyword extractor. You need to extract keywords from the meeting content. All responses should be in Korean."},
-        {"role": "user", "content": f"{text}. 이건 회의 내용인데 핵심 키워드 2개를 추출하고 선택한 이유에 대해 설명해줘(list = {keywords_list}내에 있는 키워드는 제외하고!), 답변은 다음과 같은 형식으로 해줘. {ek}"}
+        {"role": "system", 
+         "content": "You are the best keyword extractor. \
+                     You need to extract keywords from the meeting content. All responses should be in Korean."},
+        {"role": "user", 
+         "content": f"{text}. 이건 회의 내용인데 핵심 키워드 5개 추출하고 선택한 이유에 대해 설명해줘, 
+                    답변은 다음과 같은 형식으로 해줘. {ek}"}
     ]
 
     # Make API request using the content from the text file
